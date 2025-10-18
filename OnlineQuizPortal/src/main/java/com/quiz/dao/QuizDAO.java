@@ -56,9 +56,9 @@ public class QuizDAO {
             if (quiz != null) {
                 // Fetch associated questions
                 String questionQuery =
-                        "SELECT q.id, q.question_text, q.option_a, q.option_b, q.option_c, q.option_d, q.correct_option " +
+                        "SELECT q.questionId, q.category, q.questionText, q.optionA, q.optionB, q.optionC, q.optionD, q.correctOption " +
                         "FROM question q " +
-                        "INNER JOIN quiz_question qq ON q.id = qq.question_id " +
+                        "INNER JOIN quiz_question qq ON q.questionId = qq.question_id " +
                         "WHERE qq.quiz_id = ?";
                 PreparedStatement psQues = conn.prepareStatement(questionQuery);
                 psQues.setInt(1, quizId);
@@ -67,13 +67,14 @@ public class QuizDAO {
                 List<Question> questions = new ArrayList<>();
                 while (rsQues.next()) {
                     Question q = new Question();
-                    q.setId(rsQues.getInt("id"));
-                    q.setQuestion_text(rsQues.getString("question_text"));
-                    q.setOption_a(rsQues.getString("option_a"));
-                    q.setOption_b(rsQues.getString("option_b"));
-                    q.setOption_c(rsQues.getString("option_c"));
-                    q.setOption_d(rsQues.getString("option_d"));
-                    q.setCorrect_option(rsQues.getString("correct_option"));
+//                    q.setId(rsQues.getInt("id"));
+                    q.setCategory(rsQues.getString("category"));
+                    q.setQuestionText(rsQues.getString("questionText"));
+                    q.setOptionA(rsQues.getString("optionA"));
+                    q.setOptionB(rsQues.getString("optionB"));
+                    q.setOptionC(rsQues.getString("optionC"));
+                    q.setOptionD(rsQues.getString("optionD"));
+                    q.setCorrectOption(rsQues.getString("correctOption"));
                     questions.add(q);
                 }
 
@@ -89,7 +90,7 @@ public class QuizDAO {
     
  // Link all questions of the given category to the quiz
     public void linkQuestionsByCategory(int quizId, String category) {
-        String selectSql = "SELECT id FROM question WHERE category = ?";
+        String selectSql = "SELECT questionId FROM question WHERE category = ?";
         String insertSql = "INSERT INTO quiz_question (quiz_id, question_id) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
@@ -100,7 +101,7 @@ public class QuizDAO {
             ResultSet rs = psSelect.executeQuery();
 
             while (rs.next()) {
-                int questionId = rs.getInt("id");
+                int questionId = rs.getInt("questionId");
                 psInsert.setInt(1, quizId);
                 psInsert.setInt(2, questionId);
                 psInsert.executeUpdate();
@@ -128,7 +129,7 @@ public class QuizDAO {
 
     public Question getQuestionById(int questionId) {
         Question q = null;
-        String sql = "SELECT * FROM question WHERE id = ?";
+        String sql = "SELECT * FROM question WHERE questionId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -136,16 +137,29 @@ public class QuizDAO {
             ps.setInt(1, questionId);
             ResultSet rs = ps.executeQuery();
 
+//            if (rs.next()) {
+//                q = new Question();
+//                q.setId(rs.getInt("id"));
+//                q.setQuestion_text(rs.getString("question_text"));
+//                q.setOption_a(rs.getString("option_a"));
+//                q.setOption_b(rs.getString("option_b"));
+//                q.setOption_c(rs.getString("option_c"));
+//                q.setOption_d(rs.getString("option_d"));
+//                q.setCorrect_option(rs.getString("correct_option"));
+//                q.setCategory(rs.getString("category"));
+//            }
+            
             if (rs.next()) {
                 q = new Question();
-                q.setId(rs.getInt("id"));
-                q.setQuestion_text(rs.getString("question_text"));
-                q.setOption_a(rs.getString("option_a"));
-                q.setOption_b(rs.getString("option_b"));
-                q.setOption_c(rs.getString("option_c"));
-                q.setOption_d(rs.getString("option_d"));
-                q.setCorrect_option(rs.getString("correct_option"));
+//                q.setId(rs.getInt("id"));
                 q.setCategory(rs.getString("category"));
+                q.setQuestionText(rs.getString("questionText"));
+                q.setOptionA(rs.getString("optionA"));
+                q.setOptionB(rs.getString("optionB"));
+                q.setOptionC(rs.getString("optionC"));
+                q.setOptionD(rs.getString("optionD"));
+                q.setCorrectOption(rs.getString("correctOption"));
+                
             }
 
         } catch (SQLException e) {
@@ -208,7 +222,7 @@ public class QuizDAO {
 
     public List<String> getAllCategories() {
         List<String> categories = new ArrayList<>();
-        String sql = "SELECT DISTINCT category FROM quiz"; // or your category table
+        String sql = "SELECT DISTINCT category FROM question"; // or your category table
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);

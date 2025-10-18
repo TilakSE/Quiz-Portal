@@ -93,12 +93,12 @@
                     %>
                         <tr>
                             <td><%= qCount++ %></td>
-                            <td><%= q.getQuestion_text() %></td>
-                            <td><%= q.getOption_a() %></td>
-                            <td><%= q.getOption_b() %></td>
-                            <td><%= q.getOption_c() %></td>
-                            <td><%= q.getOption_d() %></td>
-                            <td><%= q.getCorrect_option() %></td>
+                            <td><%= q.getQuestionText() %></td>
+                            <td><%= q.getOptionA() %></td>
+                            <td><%= q.getOptionB() %></td>
+                            <td><%= q.getOptionC() %></td>
+                            <td><%= q.getOptionD() %></td>
+                            <td><%= q.getCorrectOption() %></td>
                         </tr>
                     <%
                         }
