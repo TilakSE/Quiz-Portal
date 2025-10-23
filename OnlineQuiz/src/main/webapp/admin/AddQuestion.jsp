@@ -200,7 +200,7 @@
   </header>
 
   <nav class="sidebar" id="sidebar">
-    <button onclick="window.location.href='AdminDashboard.jsp'">Dashboard</button>
+    <button onclick="window.location.href='<%=request.getContextPath()%>/Admin/AdminDashboardServlet'">Dashboard</button>
     <button onclick="window.location.href='AdminLogin.jsp'">Logout</button>
     <button onclick="window.location.href='/OnlineQuiz/QuestionListServlet'">list</button>
   </nav>
@@ -252,7 +252,7 @@
     </form>
 	<br>
     <div style="text-align:center;">
-    	<a class="action-btn" href="<%=request.getContextPath()%>/admin/AdminDashboard.jsp">Back to Dashboard</a>
+    	<a class="action-btn" href="<%=request.getContextPath()%>/Admin/AdminDashboardServlet">Back to Dashboard</a>
 	</div>
   </main>
 

@@ -6,6 +6,7 @@ import com.quiz.util.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,5 +62,19 @@ public class QuestionDAO {
 
         return questions;
     }
+    
+    public int getQuestionCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM question";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) count = rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
 
 }

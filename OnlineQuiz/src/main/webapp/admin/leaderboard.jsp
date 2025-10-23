@@ -64,7 +64,7 @@ a.action-btn:hover { background-color: #34495e; }
 </table>
 
 <div style="text-align:center;">
-    <a class="action-btn" href="<%=request.getContextPath()%>/admin/AdminDashboard.jsp">Back to Dashboard</a>
+    <a class="action-btn" href="<%=request.getContextPath()%>/Admin/AdminDashboardServlet">Back to Dashboard</a>
 </div>
 <%@ include file="footer.jsp" %>
 </body>

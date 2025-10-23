@@ -67,7 +67,6 @@ public class QuizDAO {
                 List<Question> questions = new ArrayList<>();
                 while (rsQues.next()) {
                     Question q = new Question();
-//                    q.setId(rsQues.getInt("id"));
                     q.setCategory(rsQues.getString("category"));
                     q.setQuestionText(rsQues.getString("questionText"));
                     q.setOptionA(rsQues.getString("optionA"));
@@ -136,22 +135,9 @@ public class QuizDAO {
 
             ps.setInt(1, questionId);
             ResultSet rs = ps.executeQuery();
-
-//            if (rs.next()) {
-//                q = new Question();
-//                q.setId(rs.getInt("id"));
-//                q.setQuestion_text(rs.getString("question_text"));
-//                q.setOption_a(rs.getString("option_a"));
-//                q.setOption_b(rs.getString("option_b"));
-//                q.setOption_c(rs.getString("option_c"));
-//                q.setOption_d(rs.getString("option_d"));
-//                q.setCorrect_option(rs.getString("correct_option"));
-//                q.setCategory(rs.getString("category"));
-//            }
             
             if (rs.next()) {
                 q = new Question();
-//                q.setId(rs.getInt("id"));
                 q.setCategory(rs.getString("category"));
                 q.setQuestionText(rs.getString("questionText"));
                 q.setOptionA(rs.getString("optionA"));
