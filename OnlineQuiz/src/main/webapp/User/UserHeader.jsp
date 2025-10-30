@@ -5,7 +5,7 @@
     <ul class="nav-links" id="nav-links">
         <li><a href="<%= request.getContextPath() %>/User/UserDashboard.jsp">Dashboard</a></li>
         <li><a href="<%= request.getContextPath() %>/User/Leaderboard.jsp">Leaderboard</a></li>
-        <li><a href="<%= request.getContextPath() %>/User/User.jsp">Logout</a></li>
+        <li><a href="<%= request.getContextPath() %>/index.jsp">Logout</a></li>
     </ul>
 </div>
 
